@@ -8,7 +8,6 @@
     "noUnusedLocals": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "./out",
-    "declaration": true,
     "experimentalDecorators": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -16,7 +15,11 @@
     "tsBuildInfoFile": "./.cache/tsbuildinfo",
     "incremental": true,
     "rootDir": "./src",
-    "typeRoots": ["./node_modules/@types", "./typings"]
+    "typeRoots": ["./node_modules/@types", "./typings"],
+    "baseUrl": ".",
+    "paths": {
+      "coder-server": ["src/code-server.d.ts"]
+    }
   },
   "include": ["./src/**/*.ts"]
 }

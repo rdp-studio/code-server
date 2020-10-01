@@ -2,20 +2,12 @@ import { field, logger } from "@coder/logger"
 import * as fs from "fs"
 import * as path from "path"
 import * as util from "util"
+import { Plugin } from "../../plugin"
 import { Args } from "./cli"
 import { HttpServer } from "./http"
 import { paths } from "./util"
 
 /* eslint-disable @typescript-eslint/no-var-requires */
-
-export type Activate = (httpServer: HttpServer, args: Args) => void
-
-/**
- * Plugins must implement this interface.
- */
-export interface Plugin {
-  activate: Activate
-}
 
 /**
  * Intercept imports so we can inject code-server when the plugin tries to
@@ -54,6 +46,7 @@ const loadPlugin = async (pluginPath: string, httpServer: HttpServer, args: Args
  */
 const _loadPlugins = async (pluginDir: string, httpServer: HttpServer, args: Args): Promise<void> => {
   try {
+    logger.debug("Loading plugins", field("dir", pluginDir))
     const files = await util.promisify(fs.readdir)(pluginDir, {
       withFileTypes: true,
     })

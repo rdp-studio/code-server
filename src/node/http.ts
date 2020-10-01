@@ -15,6 +15,7 @@ import { HttpCode, HttpError } from "../common/http"
 import { arrayify, normalize, Options, plural, split, trimSlashes } from "../common/util"
 import { SocketProxyProvider } from "./socket"
 import { getMediaMime, paths } from "./util"
+// import * as api from "../../plugin"
 
 export type Cookies = { [key: string]: string[] | undefined }
 export type PostData = { [key: string]: string | string[] | undefined }
