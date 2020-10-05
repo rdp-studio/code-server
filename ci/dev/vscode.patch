@@ -212,6 +212,21 @@ index 0000000000000000000000000000000000000000..df5b42cba463b6c0043aebbc835f852f
 +	util.rimraf("out-vscode-min"),
 +	common.minifyTask("out-vscode")
 +));
+diff --git a/extensions/github-authentication/src/githubServer.ts b/extensions/github-authentication/src/githubServer.ts
+index aa7dec8e9b4562b47868387d7812711b6321eaa7..09a88519411a4927e8f7dd3fa67f51ba0a889e28 100644
+--- a/extensions/github-authentication/src/githubServer.ts
++++ b/extensions/github-authentication/src/githubServer.ts
+@@ -76,7 +76,9 @@ export class GitHubServer {
+ 		this.updateStatusBarItem(true);
+ 
+ 		const state = uuid();
+-		const callbackUri = await vscode.env.asExternalUri(vscode.Uri.parse(`${vscode.env.uriScheme}://vscode.github-authentication/did-authenticate`));
++		// NOTE@coder: Remove asExternalUri since that uses the URI serving
++		// code-server which won't match the oauth app's callback URI.
++		const callbackUri = vscode.Uri.parse(`${vscode.env.uriScheme}://vscode.github-authentication/did-authenticate`);
+ 
+ 		if (this.isTestEnvironment(callbackUri)) {
+ 			const token = await vscode.window.showInputBox({ prompt: 'GitHub Personal Access Token', ignoreFocusOut: true });
 diff --git a/extensions/postinstall.js b/extensions/postinstall.js
 index da4fa3e9d0443d679dfbab1000b434af2ae01afd..50f3e1144f8057883dea8b91ec2f7073458dbd94 100644
 --- a/extensions/postinstall.js
